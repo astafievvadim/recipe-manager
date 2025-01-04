@@ -10,4 +10,7 @@ import java.io.Serializable;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Serializable> {
+
+    Recipe findRecipeByRecipeId(Long recipeId);
+    Recipe findRecipeByLabel(String label);
 }

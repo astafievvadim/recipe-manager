@@ -5,13 +5,13 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "comments")
+@Table(name = "comments_custom")
 public class Comment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long commentId;
-
+    @Column(name = "recipeUser")
     private User user;
 
     private String description;

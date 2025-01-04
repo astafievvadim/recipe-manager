@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "recipes")
+@Table(name = "recipes_custom")
 public class Recipe implements Serializable {
 
     @Id
@@ -28,7 +28,7 @@ public class Recipe implements Serializable {
 
     @NonNull
     private String instructions;
-
+    @Column(name = "recipeUser")
     private User user;
 
     private List<Comment> comment;
