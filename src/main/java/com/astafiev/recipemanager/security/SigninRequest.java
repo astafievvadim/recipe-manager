@@ -1,9 +1,13 @@
+/*
 package com.astafiev.recipemanager.security;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 @Data
+@Getter
+@Setter
 public class SigninRequest {
     private String username;
     private String password;
@@ -21,3 +25,4 @@ public class SigninRequest {
         return email;
     }
 }
+*/

@@ -3,9 +3,15 @@ package com.astafiev.recipemanager.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "users_custom")
+@Table(name = "users_custom",
+    uniqueConstraints = {
+    @UniqueConstraint(columnNames = "username"),
+    @UniqueConstraint(columnNames = "email")
+    })
 public class User implements Serializable {
 
     @Id
@@ -17,16 +23,32 @@ public class User implements Serializable {
     private String email;
 
     private String password;
+/*
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(  name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
+        public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+        public Set<Role> getRoles() {
+        return roles;
+    }
+
+*/
     public User() {
     }
 
-    public User(Long userId, String username, String email, String password) {
-        this.userId = userId;
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
     }
+
+
 
     public Long getUserId() {
         return userId;
@@ -43,6 +65,9 @@ public class User implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
+
+
+
 
     public String getEmail() {
         return email;
