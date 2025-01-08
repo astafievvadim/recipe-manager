@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class IngredientType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ingredientTypeId;
+    private Long id;
 
     @NonNull
     private String label;
@@ -18,17 +18,16 @@ public class IngredientType implements Serializable {
     public IngredientType() {
     }
 
-    public IngredientType(Long ingredientTypeId, @NonNull String label) {
-        this.ingredientTypeId = ingredientTypeId;
+    public IngredientType(@NonNull String label) {
         this.label = label;
     }
 
-    public Long getIngredientTypeId() {
-        return ingredientTypeId;
+    public Long getId() {
+        return id;
     }
 
-    public void setIngredientTypeId(Long ingredientTypeId) {
-        this.ingredientTypeId = ingredientTypeId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @NonNull

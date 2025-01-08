@@ -5,38 +5,39 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "ingredient_nutrition")
+@Table(name = "ingredient_nutritions")
 public class IngredientNutrition implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ingredientNutritionId;
+    @EmbeddedId
+    private IngredientNutritionId id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("ingredientId")
     private Ingredient ingredient;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("nutritionValueId")
     private NutritionValue nutritionValue;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("unitId")
     private Unit unit;
 
     private double amount;
-
     public IngredientNutrition() {
     }
 
-    public IngredientNutrition(Long ingredientNutritionId, Ingredient ingredient, NutritionValue nutritionValue, Unit unit, double amount) {
-        this.ingredientNutritionId = ingredientNutritionId;
+    public IngredientNutrition(Ingredient ingredient, NutritionValue nutritionValue, Unit unit, double amount) {
         this.ingredient = ingredient;
         this.nutritionValue = nutritionValue;
         this.unit = unit;
         this.amount = amount;
     }
 
-    public Long getIngredientNutritionId() {
-        return ingredientNutritionId;
+    public IngredientNutritionId getId() {
+        return id;
     }
 
-    public void setIngredientNutritionId(Long ingredientNutritionId) {
-        this.ingredientNutritionId = ingredientNutritionId;
+    public void setId(IngredientNutritionId id) {
+        this.id = id;
     }
 
     public Ingredient getIngredient() {

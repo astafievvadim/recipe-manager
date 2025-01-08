@@ -1,20 +1,14 @@
 package com.astafiev.recipemanager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
 
-    private Long userId;
+    private Long id;
     private String username;
     private String email;
     @JsonIgnore
@@ -33,8 +27,8 @@ public class UserDetailsImpl implements UserDetails {
 
 
 
-    public UserDetailsImpl(Long userId, String username, String email, String password) {
-        this.userId = userId;
+    public UserDetailsImpl(Long id, String username, String email, String password) {
+        this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
@@ -49,7 +43,7 @@ public class UserDetailsImpl implements UserDetails {
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 */
-        return new UserDetailsImpl(user.getUserId(), user.getUsername(), user.getPassword(),user.getPassword());
+        return new UserDetailsImpl(user.getId(), user.getUsername(), user.getPassword(),user.getPassword());
     }
 
 
@@ -93,7 +87,7 @@ public class UserDetailsImpl implements UserDetails {
     }
 
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 }

@@ -1,43 +1,52 @@
 package com.astafiev.recipemanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import org.springframework.lang.NonNull;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "recipes_custom")
+@Table(name = "recipes")
 public class Recipe implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long recipeId;
+    private Long id;
 
     @NotNull
     @ManyToOne
+    @JoinColumn(name = "recipe_type_id")
     private RecipeType recipeType;
 
-    @NonNull
     private String label;
 
-    @NonNull
     private String description;
 
-    @NonNull
     private String instructions;
-    @Column(name = "recipeUser")
+    @ManyToOne
+    @JoinColumn (name = "user_id")
     private User user;
-
+    @OneToMany
+    @JoinColumn (name = "comment_id")
     private List<Comment> comment;
+
+
+    @OneToMany(
+            mappedBy = "recipe",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
     public Recipe() {
     }
 
-    public Recipe(Long recipeId, RecipeType recipeType, @NonNull String label, @NonNull String description, @NonNull String instructions, User user, List<Comment> comment) {
-        this.recipeId = recipeId;
+    public Recipe(RecipeType recipeType, @NonNull String label, @NonNull String description, @NonNull String instructions, User user, List<Comment> comment) {
         this.recipeType = recipeType;
         this.label = label;
         this.description = description;
@@ -45,13 +54,20 @@ public class Recipe implements Serializable {
         this.user = user;
         this.comment = comment;
     }
-
-    public long getRecipe_id() {
-        return recipeId;
+    public List<RecipeIngredient> getRecipeIngredients() {
+        return recipeIngredients;
     }
 
-    public void setRecipe_id(long recipeId) {
-        this.recipeId = recipeId;
+    public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
+        this.recipeIngredients = recipeIngredients;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public RecipeType getRecipeType() {

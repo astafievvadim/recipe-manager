@@ -11,7 +11,7 @@ public class RecipeType implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long recipeTypeId;
+    private Long id;
     @NonNull
     private String label;
     @NonNull
@@ -20,18 +20,18 @@ public class RecipeType implements Serializable {
     public RecipeType() {
     }
 
-    public RecipeType(long RecipeTypeId, @NonNull String label, @NonNull String description) {
-        this.recipeTypeId = RecipeTypeId;
+    public RecipeType(@NonNull String label, @NonNull String description) {
+
         this.label = label;
         this.description = description;
     }
 
-    public void setRecipeTypeId(long recipeTypeId) {
-        this.recipeTypeId = recipeTypeId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public long getRecipeTypeId() {
-        return recipeTypeId;
+    public long getId() {
+        return id;
     }
 
     public void setLabel(@NonNull String label) {

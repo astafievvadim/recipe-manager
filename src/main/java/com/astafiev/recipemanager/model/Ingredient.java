@@ -1,39 +1,73 @@
 package com.astafiev.recipemanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
+import java.util.List;
 @Entity
 @Table(name = "ingredients")
 public class Ingredient implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ingredientId;
-
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "ingredient_type_id")
     private IngredientType ingredientType;
 
     private String label;
 
     private String description;
 
+    @OneToMany(
+            mappedBy = "ingredient",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
+/*
+    @JsonIgnore
+    @OneToMany(mappedBy = "ingredients")
+    private List <IngredientNutrition> ingredientNutrition;
+
+        public List<IngredientNutrition> getIngredientNutrition() {
+        return ingredientNutrition;
+    }
+
+        public void setIngredientNutrition(List<IngredientNutrition> ingredientNutrition) {
+        this.ingredientNutrition = ingredientNutrition;
+    }
+*/
+
     public Ingredient() {
     }
 
-    public Ingredient(Long ingredientId, IngredientType ingredientType, String label, String description) {
-        this.ingredientId = ingredientId;
+    public Ingredient( IngredientType ingredientType, String label, String description) {
         this.ingredientType = ingredientType;
         this.label = label;
         this.description = description;
     }
 
-    public Long getIngredientId() {
-        return ingredientId;
+
+
+
+
+    public Long getId() {
+        return id;
     }
 
-    public void setIngredientId(Long ingredientId) {
-        this.ingredientId = ingredientId;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<RecipeIngredient> getRecipeIngredients() {
+        return recipeIngredients;
+    }
+
+    public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
+        this.recipeIngredients = recipeIngredients;
     }
 
     public IngredientType getIngredientType() {

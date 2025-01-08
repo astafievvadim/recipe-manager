@@ -1,8 +1,10 @@
 package com.astafiev.recipemanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "nutrition_values")
@@ -10,24 +12,29 @@ public class NutritionValue implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long nutritionValueId;
+    private Long id;
 
     private String label;
+
+    @JsonIgnore
+    @JoinColumn(name = "nutrition_value_id")
+    @OneToMany
+    private List<IngredientNutrition> ingredientNutrition;
 
     public NutritionValue() {
     }
 
-    public NutritionValue(Long nutritionValueId, String label) {
-        this.nutritionValueId = nutritionValueId;
+    public NutritionValue( String label) {
+
         this.label = label;
     }
 
-    public Long getNutritionValueId() {
-        return nutritionValueId;
+    public Long getId() {
+        return id;
     }
 
-    public void setNutritionValueId(Long nutritionValueId) {
-        this.nutritionValueId = nutritionValueId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getLabel() {

@@ -1,46 +1,45 @@
 package com.astafiev.recipemanager.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import org.springframework.lang.NonNull;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 
 @Entity
 @Table(name = "recipe_ingredients")
-public class RecipeIngredients implements Serializable {
+public class RecipeIngredient implements Serializable {
 
-    @Id
-    @GeneratedValue()
-    private Long recipeIngredientsId;
-    @NonNull
+    @EmbeddedId
+    private RecipeIngredientId id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("recipeId")
     private Recipe recipe;
-    @NonNull
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("ingredientId")
     private Ingredient ingredient;
-    @NonNull
     private double amount;
-    @NonNull
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("unitId")
     private Unit unit;
 
-    public RecipeIngredients() {
+    public RecipeIngredient() {
     }
 
-    public RecipeIngredients(Long recipeIngredientsId, Recipe recipe, Ingredient ingredient, double amount, Unit unit) {
-        this.recipeIngredientsId = recipeIngredientsId;
-        this.recipe = recipe;
+    public RecipeIngredient(Recipe recipeId, Ingredient ingredient, double amount, Unit unit) {
+        this.recipe = recipeId;
         this.ingredient = ingredient;
         this.amount = amount;
         this.unit = unit;
     }
 
-    public Long getRecipeIngredientsId() {
-        return recipeIngredientsId;
+    public RecipeIngredientId getId() {
+        return id;
     }
 
-    public void setRecipeIngredientsId(Long recipeIngredientsId) {
-        this.recipeIngredientsId = recipeIngredientsId;
+    public void setId(RecipeIngredientId id) {
+        this.id = id;
     }
 
     public Recipe getRecipe() {

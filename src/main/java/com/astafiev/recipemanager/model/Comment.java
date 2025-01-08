@@ -5,13 +5,14 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "comments_custom")
+@Table(name = "comments")
 public class Comment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long commentId;
-    @Column(name = "recipeUser")
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     private String description;
@@ -19,18 +20,18 @@ public class Comment implements Serializable {
     public Comment() {
     }
 
-    public Comment(Long commentId, User user, String description) {
-        this.commentId = commentId;
+    public Comment(Long id, User user, String description) {
+        this.id = id;
         this.user = user;
         this.description = description;
     }
 
-    public Long getCommentId() {
-        return commentId;
+    public Long getId() {
+        return id;
     }
 
-    public void setCommentId(Long commentId) {
-        this.commentId = commentId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public User getUser() {

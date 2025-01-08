@@ -11,7 +11,7 @@ public class Unit implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long unitId;
+    private Long id;
 
     @NonNull
     private String label;
@@ -19,17 +19,17 @@ public class Unit implements Serializable {
     public Unit() {
     }
 
-    public Unit(long unitId, @NonNull String label) {
-        this.unitId = unitId;
+    public Unit(@NonNull String label) {
+
         this.label = label;
     }
 
-    public long getUnitId() {
-        return unitId;
+    public long getId() {
+        return id;
     }
 
-    public void setUnitId(long unitId) {
-        this.unitId = unitId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @NonNull
