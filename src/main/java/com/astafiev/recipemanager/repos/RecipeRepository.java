@@ -11,7 +11,16 @@ import java.util.List;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Serializable> {
-    Recipe findRecipeById(Long recipeId);
+    //Recipe findRecipeById(Long recipeId);
+    List<Recipe> findRecipesByRecipeIngredientsIngredientId(Long ingredientId);
+    List<Recipe> findByLabelContaining(String string);
+
+    List<Recipe> findRecipesByRecipeIngredientsIngredient(Ingredient ingredient);
+    //Recipe findRecipeByLabel(String label);
+
+    List<Recipe> findAll();
+}
+
 
     /*
     @TODO There was an easier way ofr it, so query is out of question for now
@@ -22,9 +31,4 @@ public interface RecipeRepository extends JpaRepository<Recipe, Serializable> {
             "ON i.id = ri.ingredientId " +
             "WHERE i.id = ingredientId ")
                 List<Recipe> findRecipeByIngredientId(Long ingredientId);
-                 List<Recipe> findBooksByBookPublishersPublisherId(Long publisherId)
      */
-    List<Recipe> findRecipesByRecipeIngredientsIngredientId(Long ingredientId);
-
-    Recipe findRecipeByLabel(String label);
-}

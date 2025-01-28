@@ -26,10 +26,11 @@ public class Ingredient implements Serializable {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
-/*
     @JsonIgnore
-    @OneToMany(mappedBy = "ingredients")
+    private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "ingredient")
     private List <IngredientNutrition> ingredientNutrition;
 
         public List<IngredientNutrition> getIngredientNutrition() {
@@ -39,7 +40,7 @@ public class Ingredient implements Serializable {
         public void setIngredientNutrition(List<IngredientNutrition> ingredientNutrition) {
         this.ingredientNutrition = ingredientNutrition;
     }
-*/
+
 
     public Ingredient() {
     }

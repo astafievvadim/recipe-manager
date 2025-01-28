@@ -25,4 +25,6 @@ public class RoleLoader{// implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         userRepository.save(new User("user","email","{noop}password"));
     }
+
+
 }

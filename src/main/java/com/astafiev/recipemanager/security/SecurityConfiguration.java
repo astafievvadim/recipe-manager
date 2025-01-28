@@ -39,9 +39,8 @@ public class SecurityConfiguration {
                 //.securityContext(context -> context.securityContextRepository(securityContextRepository()))
                 .requestCache(RequestCacheConfigurer::disable)
                 .authorizeHttpRequests(req ->
-                        req.requestMatchers("/user/admin/**").hasRole("ADMIN")
-                                .requestMatchers("/user/**").authenticated()
-                                .anyRequest().denyAll())
+                        req
+                                .anyRequest().permitAll())
                                 .build();
     }
 /*

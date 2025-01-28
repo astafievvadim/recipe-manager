@@ -18,7 +18,7 @@ public class NutritionValue implements Serializable {
 
     @JsonIgnore
     @JoinColumn(name = "nutrition_value_id")
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<IngredientNutrition> ingredientNutrition;
 
     public NutritionValue() {

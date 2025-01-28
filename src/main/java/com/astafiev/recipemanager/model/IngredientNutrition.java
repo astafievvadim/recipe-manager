@@ -1,6 +1,7 @@
 package com.astafiev.recipemanager.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.io.Serializable;
 
@@ -9,15 +10,18 @@ import java.io.Serializable;
 public class IngredientNutrition implements Serializable {
 
     @EmbeddedId
-    private IngredientNutritionId id;
+    private IngredientNutritionId id = new IngredientNutritionId();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     @MapsId("ingredientId")
     private Ingredient ingredient;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     @MapsId("nutritionValueId")
     private NutritionValue nutritionValue;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     @MapsId("unitId")
     private Unit unit;
 

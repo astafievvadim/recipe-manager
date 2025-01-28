@@ -1,6 +1,9 @@
 package com.astafiev.recipemanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -9,16 +12,19 @@ import org.springframework.lang.NonNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "recipes")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Recipe implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "recipe_type_id")
     private RecipeType recipeType;
@@ -28,19 +34,19 @@ public class Recipe implements Serializable {
     private String description;
 
     private String instructions;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn (name = "user_id")
     private User user;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn (name = "comment_id")
     private List<Comment> comment;
-
 
     @OneToMany(
             mappedBy = "recipe",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
     public Recipe() {
@@ -120,4 +126,23 @@ public class Recipe implements Serializable {
     public void setComment(List<Comment> comment) {
         this.comment = comment;
     }
+
+    public void setRecipeType(Optional<RecipeType> recipeTypeById) {
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", recipeType=" + recipeType +
+                ", label='" + label + '\'' +
+                ", description='" + description + '\'' +
+                ", instructions='" + instructions + '\'' +
+                ", user=" + user +
+                ", comment=" + comment +
+                ", recipeIngredients=" + recipeIngredients +
+                '}';
+    }
+
+
 }
