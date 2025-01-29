@@ -1,14 +1,11 @@
 package com.astafiev.recipemanager.services;
 
-import com.astafiev.recipemanager.dtos.RecipeDTO;
-import com.astafiev.recipemanager.dtos.RecipeIngredientDTO;
+import com.astafiev.recipemanager.dtos.RecipeDto;
+import com.astafiev.recipemanager.dtos.RecipeIngredientDto;
 import com.astafiev.recipemanager.model.Recipe;
 import com.astafiev.recipemanager.model.RecipeIngredient;
 import com.astafiev.recipemanager.model.RecipeIngredientId;
-import com.astafiev.recipemanager.repos.IngredientRepository;
 import com.astafiev.recipemanager.repos.RecipeRepository;
-import com.astafiev.recipemanager.repos.RecipeTypeRepository;
-import com.astafiev.recipemanager.repos.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,25 +15,24 @@ import java.util.List;
 @Service
 public class RecipeService {
 
-
     private RecipeRepository recipeRepository;
 
-    RecipeTypeRepository recipeTypeRepository;
-    UnitRepository unitRepository;
-    IngredientRepository ingredientRepository;
-    @Autowired
-    public void setRecipeTypeRepository(RecipeTypeRepository recipeTypeRepository) {
-        this.recipeTypeRepository = recipeTypeRepository;
-    }
-    @Autowired
-    public void setUnitRepository(UnitRepository unitRepository) {
-        this.unitRepository = unitRepository;
-    }
-    @Autowired
-    public void setIngredientRepository(IngredientRepository ingredientRepository) {
-        this.ingredientRepository = ingredientRepository;
-    }
+    private RecipeTypeService recipeTypeService;
+    private UnitService unitService;
+    private IngredientService ingredientService;
 
+    @Autowired
+    public void setRecipeTypeService(RecipeTypeService recipeTypeService) {
+        this.recipeTypeService = recipeTypeService;
+    }
+    @Autowired
+    public void setUnitService(UnitService unitService) {
+        this.unitService = unitService;
+    }
+    @Autowired
+    public void setIngredientService(IngredientService ingredientService) {
+        this.ingredientService = ingredientService;
+    }
     @Autowired
     public void setRecipeRepository(RecipeRepository recipeRepository) {
         this.recipeRepository = recipeRepository;
@@ -50,19 +46,19 @@ public class RecipeService {
         recipeRepository.save(recipe);
     }
 
-    public void saveRecipeFromDTIO(RecipeDTO recipe){
+    public Recipe getRecipeFromDto(RecipeDto recipeDto){
 
         Recipe r = new Recipe();
-        r.setLabel(recipe.getLabel());
-        r.setInstructions(recipe.getInstructions());
-        r.setDescription(recipe.getDescription());
-        r.setRecipeType(recipeTypeRepository.getRecipeTypeById(recipe.getRecipeTypeId()));
+        r.setLabel(recipeDto.getLabel());
+        r.setInstructions(recipeDto.getInstructions());
+        r.setDescription(recipeDto.getDescription());
+        r.setRecipeType(recipeTypeService.getById(recipeDto.getRecipeTypeId()));
 
-        List<RecipeIngredientDTO> tempList = recipe.getRecipeIngredientIds();
+        List<RecipeIngredientDto> tempList = recipeDto.getRecipeIngredientIds();
         List<RecipeIngredient> temp = new ArrayList<>();
 
 
-        for (RecipeIngredientDTO riDTO : tempList) {
+        for (RecipeIngredientDto riDTO : tempList) {
 
 
             temp.add(new RecipeIngredient(
@@ -73,15 +69,15 @@ public class RecipeService {
                                     riDTO.getUnitId()
                             ),
                             r,
-                            ingredientRepository.getIngredientById(riDTO.getIngredientId()),
+                            ingredientService.getById(riDTO.getIngredientId()),
                             riDTO.getAmount(),
-                            unitRepository.getUnitById(riDTO.getUnitId()).orElse(null)
+                            unitService.getById(riDTO.getUnitId())
                     )
             );
         }
 
         r.setRecipeIngredients(temp);
 
-        recipeRepository.save(r);
+        return(r);
     }
 }

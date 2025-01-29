@@ -1,8 +1,6 @@
 package com.astafiev.recipemanager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -16,18 +14,16 @@ public class RecipeIngredient implements Serializable {
     @JsonIgnore
     private RecipeIngredientId id = new RecipeIngredientId();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("recipeId")
-    @JsonIgnore
     private Recipe recipe;
 
-    @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("ingredientId")
     private Ingredient ingredient;
     private double amount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("unitId")
     private Unit unit;
 
@@ -85,10 +81,10 @@ public class RecipeIngredient implements Serializable {
     public String toString() {
         return "RecipeIngredient{" +
                 "id=" + id +
-                //", recipe=" + recipe +
-                ", ingredient=" + ingredient +
+                ", recipe=" + recipe.getLabel() +
+                ", ingredient=" + ingredient.getLabel() +
                 ", amount=" + amount +
-                ", unit=" + unit +
+                ", unit=" + unit.getLabel() +
                 '}';
     }
 }

@@ -1,36 +1,11 @@
 package com.astafiev.recipemanager.services;
 
-import com.astafiev.recipemanager.model.ERole;
-import com.astafiev.recipemanager.model.Role;
-import com.astafiev.recipemanager.model.User;
-import com.astafiev.recipemanager.model.UserDetailsImpl;
-import com.astafiev.recipemanager.repos.RoleRepository;
-import com.astafiev.recipemanager.repos.UserRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-
-/*
-import com.astafiev.recipemanager.security.JwtCore;
-import com.astafiev.recipemanager.security.JwtResponse;
-import com.astafiev.recipemanager.security.SigninRequest;
-import com.astafiev.recipemanager.security.SignupRequest;
- */
 @Service
 public class AuthenticationService {
+
+}
     /*
     private PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
@@ -139,4 +114,3 @@ public class AuthenticationService {
     }
 
      */
-}

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Serializable> {
@@ -17,13 +18,13 @@ public interface RecipeRepository extends JpaRepository<Recipe, Serializable> {
 
     List<Recipe> findRecipesByRecipeIngredientsIngredient(Ingredient ingredient);
     //Recipe findRecipeByLabel(String label);
+    //List<Recipe> findAll();
 
-    List<Recipe> findAll();
+    Optional<Recipe> findRecipeById(Long id);
 }
 
 
     /*
-    @TODO There was an easier way ofr it, so query is out of question for now
     @Query("SELECT x FROM recipes r " +
             "JOIN recipe_ingredients ri " +
             "ON r.id = ri.recipeId " +

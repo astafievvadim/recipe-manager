@@ -59,21 +59,21 @@ public class PreLoader implements ApplicationRunner {
 
         ingredientRepository.save(
                 new Ingredient(
-                        ingredientTypeRepository.findIngredientTypeById(1L),
+                        ingredientTypeRepository.findIngredientTypeById(1L).orElse(null),
                         "Potato1",
                         "Decription"
                 )
         );
         ingredientRepository.save(
                 new Ingredient(
-                        ingredientTypeRepository.findIngredientTypeById(1L),
+                        ingredientTypeRepository.findIngredientTypeById(1L).orElse(null),
                         "Potato2",
                         "Decription"
                 )
         );
         ingredientRepository.save(
                 new Ingredient(
-                        ingredientTypeRepository.findIngredientTypeById(1L),
+                        ingredientTypeRepository.findIngredientTypeById(1L).orElse(null),
                         "Potato3",
                         "Decription"
                 )

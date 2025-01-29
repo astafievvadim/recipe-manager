@@ -5,8 +5,9 @@ import com.astafiev.recipemanager.model.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 public interface IngredientTypeRepository  extends JpaRepository<IngredientType, Serializable> {
-    IngredientType findIngredientTypeById(Long id);
+    Optional<IngredientType> findIngredientTypeById(Long id);
 
 }

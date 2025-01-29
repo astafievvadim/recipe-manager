@@ -1,20 +1,21 @@
 package com.astafiev.recipemanager.dtos;
 
-public class RecipeIngredientDTO {
+import lombok.Data;
+
+
+public class RecipeIngredientDto {
 
     private Long ingredientId;
-
     private double amount;
-
     private Long unitId;
 
-    public RecipeIngredientDTO(Long ingredientId, double amount, Long unitId) {
+    public RecipeIngredientDto(Long ingredientId, double amount, Long unitId) {
         this.ingredientId = ingredientId;
         this.amount = amount;
         this.unitId = unitId;
     }
 
-    public RecipeIngredientDTO() {
+    public RecipeIngredientDto() {
     }
 
     public Long getIngredientId() {
