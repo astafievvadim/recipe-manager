@@ -21,12 +21,13 @@ public class Ingredient implements Serializable {
 
     private String description;
 
+
+    @JsonIgnore
     @OneToMany(
             mappedBy = "ingredient",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JsonIgnore
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
     @OneToMany(
@@ -34,7 +35,6 @@ public class Ingredient implements Serializable {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JsonIgnore
     private List <IngredientNutrition> ingredientNutrition;
 
         public List<IngredientNutrition> getIngredientNutrition() {
@@ -54,10 +54,6 @@ public class Ingredient implements Serializable {
         this.label = label;
         this.description = description;
     }
-
-
-
-
 
     public Long getId() {
         return id;

@@ -5,12 +5,14 @@ import com.astafiev.recipemanager.dto.RecipeIngredientDto;
 import com.astafiev.recipemanager.model.Recipe;
 import com.astafiev.recipemanager.model.RecipeIngredient;
 import com.astafiev.recipemanager.model.RecipeIngredientId;
+import com.astafiev.recipemanager.model.User;
 import com.astafiev.recipemanager.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class RecipeService {
@@ -27,6 +29,60 @@ public class RecipeService {
         this.recipeTypeService = recipeTypeService;
         this.unitService = unitService;
         this.ingredientService = ingredientService;
+    }
+
+    public Recipe getById(Long id){
+        return recipeRepository.findRecipeById(id).orElseThrow();
+    }
+
+    public Recipe updateRecipe(Long id, Recipe recipe, User user){
+
+        Recipe inDB = recipeRepository.findRecipeById(id).get();
+
+        if(!Objects.equals(inDB.getUser().getId(), user.getId())){
+            throw new RuntimeException(new Exception());
+        }
+
+        if(
+                recipe.getLabel() != null &
+                        !recipe.getLabel().isEmpty()
+        ){
+            inDB.setLabel(recipe.getLabel());
+        }
+
+        if(
+                recipe.getDescription() != null &
+                        !recipe.getDescription().isEmpty()
+        ){
+            inDB.setDescription(recipe.getDescription());
+        }
+
+        if(
+                recipe.getInstructions() != null &
+                        !recipe.getInstructions().isEmpty()
+        ){
+            inDB.setInstructions(recipe.getInstructions());
+        }
+
+        if(
+                recipe.getRecipeIngredients() != null &
+                        !recipe.getRecipeIngredients().isEmpty()
+        ){
+            for(int i = 0; i < inDB.getRecipeIngredients().size(); i++){
+                inDB.getRecipeIngredients().remove(i);
+            }
+
+            inDB.getRecipeIngredients().addAll(recipe.getRecipeIngredients());
+        }
+
+        if(
+                recipe.getRecipeType() != null &
+                        !recipe.getRecipeType().isEmpty()
+        ){
+            inDB.setRecipeType(recipe.getRecipeType());
+        }
+
+        return recipeRepository.save(inDB);
     }
 
     public List<Recipe> getAllRecipes(){

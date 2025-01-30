@@ -12,15 +12,15 @@ public class RecipeType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NonNull
+
     private String label;
-    @NonNull
+
     private String description;
 
     public RecipeType() {
     }
 
-    public RecipeType(@NonNull String label, @NonNull String description) {
+    public RecipeType(String label, String description) {
 
         this.label = label;
         this.description = description;
@@ -34,23 +34,26 @@ public class RecipeType implements Serializable {
         return id;
     }
 
-    public void setLabel(@NonNull String label) {
+    public void setLabel(String label) {
         this.label = label;
     }
 
-    @NonNull
+
     public String getLabel() {
         return label;
     }
 
 
-    public void setDescription(@NonNull String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    @NonNull
+
     public String getDescription() {
         return description;
     }
 
+    public boolean isEmpty() {
+        return label != null && description != null;
+    }
 }

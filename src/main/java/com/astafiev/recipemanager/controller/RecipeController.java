@@ -29,21 +29,43 @@ public class RecipeController {
         this.userService = userService;
     }
 
-    @GetMapping("/all")
-    public List<Recipe> getAllRecipes() {
-        return recipeService.getAllRecipes();
+    @GetMapping("/{recipeId}")
+    public Recipe getRecipe(@PathVariable Long recipeId) {
+
+        return recipeService.getById(recipeId);
+    }
+
+    @GetMapping("/from/{startId}/to/{finishId}")
+    public Recipe getRecipes(@PathVariable Long recipeId) {
+
+        return recipeService.getById(recipeId);
     }
     @PostMapping("/put")
     public ResponseEntity<?> addRecipeFromDTO(@RequestBody RecipeDto recipe, Principal principal) {
+
         if(principal == null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED.value()).body("You must be logged in to do dat");
         }
-        Recipe r = recipeService.getRecipeFromDto(recipe);
 
+        Recipe r = recipeService.getRecipeFromDto(recipe);
         r.setUser( userService.getUserByUsername(principal.getName()));
         recipeService.saveRecipe(r);
 
         return ResponseEntity.ok("Recipe added");
+    }
+
+    @PostMapping("/{recipeId}/edit")
+    public ResponseEntity<?> editRecipe(@RequestBody RecipeDto recipe, Principal principal, @PathVariable Long recipeId) {
+
+        if(principal == null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED.value()).body("You must be logged in to do dat");
+        }
+
+        Recipe r = recipeService.getRecipeFromDto(recipe);
+        User user = userService.getUserByUsername(principal.getName());
+
+
+        return ResponseEntity.ok(recipeService.updateRecipe(recipeId, r, user));
     }
 
     @GetMapping("/{recipeId}/ingredients")

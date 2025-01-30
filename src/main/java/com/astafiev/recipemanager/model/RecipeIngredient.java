@@ -13,17 +13,18 @@ public class RecipeIngredient implements Serializable {
     @EmbeddedId
     @JsonIgnore
     private RecipeIngredientId id = new RecipeIngredientId();
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    
+    @ManyToOne(cascade = CascadeType.DETACH)
     @MapsId("recipeId")
+    @JsonIgnore
     private Recipe recipe;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @MapsId("ingredientId")
     private Ingredient ingredient;
     private double amount;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @MapsId("unitId")
     private Unit unit;
 

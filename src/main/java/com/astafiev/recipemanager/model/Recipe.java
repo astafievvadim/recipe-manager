@@ -23,7 +23,7 @@ public class Recipe implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipe_type_id")
     private RecipeType recipeType;
 
@@ -135,7 +135,7 @@ public class Recipe implements Serializable {
                 ", instructions='" + instructions + '\'' +
                 ", user=" + user +
                 ", comment=" + comment +
-                ", recipeIngredients=" + recipeIngredients +
+                //", recipeIngredients=" + recipeIngredients +
                 '}';
     }
 
