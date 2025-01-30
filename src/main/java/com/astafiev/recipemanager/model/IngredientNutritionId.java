@@ -8,11 +8,6 @@ import lombok.*;
 
 import java.io.Serializable;
 
-@EqualsAndHashCode
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 @Embeddable
 public class IngredientNutritionId implements Serializable {
 
@@ -22,4 +17,6 @@ public class IngredientNutritionId implements Serializable {
     private Long nutritionValueId;
     @Column(name = "unit_id")
     private Long unitId;
+
+
 }

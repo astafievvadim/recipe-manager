@@ -6,7 +6,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "ingredient_nutritions")
+@Table(name = "ingredient_nutrition")
 public class IngredientNutrition implements Serializable {
 
     @EmbeddedId

@@ -1,0 +1,74 @@
+package com.astafiev.recipemanager.service;
+
+import com.astafiev.recipemanager.dto.RecipeDto;
+import com.astafiev.recipemanager.dto.RecipeIngredientDto;
+import com.astafiev.recipemanager.model.Recipe;
+import com.astafiev.recipemanager.model.RecipeIngredient;
+import com.astafiev.recipemanager.model.RecipeIngredientId;
+import com.astafiev.recipemanager.repository.RecipeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class RecipeService {
+
+    private RecipeRepository recipeRepository;
+
+    private RecipeTypeService recipeTypeService;
+    private UnitService unitService;
+    private IngredientService ingredientService;
+
+    @Autowired
+    public RecipeService(RecipeRepository recipeRepository, RecipeTypeService recipeTypeService, UnitService unitService, IngredientService ingredientService) {
+        this.recipeRepository = recipeRepository;
+        this.recipeTypeService = recipeTypeService;
+        this.unitService = unitService;
+        this.ingredientService = ingredientService;
+    }
+
+    public List<Recipe> getAllRecipes(){
+        return recipeRepository.findAll();
+    }
+
+    public void saveRecipe(Recipe recipe){
+        recipeRepository.save(recipe);
+    }
+
+    public Recipe getRecipeFromDto(RecipeDto recipeDto){
+
+        Recipe r = new Recipe();
+        r.setLabel(recipeDto.getLabel());
+        r.setInstructions(recipeDto.getInstructions());
+        r.setDescription(recipeDto.getDescription());
+        r.setRecipeType(recipeTypeService.getById(recipeDto.getRecipeTypeId()));
+
+        List<RecipeIngredientDto> tempList = recipeDto.getRecipeIngredientIds();
+        List<RecipeIngredient> temp = new ArrayList<>();
+
+
+        for (RecipeIngredientDto riDTO : tempList) {
+
+
+            temp.add(new RecipeIngredient(
+
+                            new RecipeIngredientId(
+                                    r.getId(),
+                                    riDTO.getIngredientId(),
+                                    riDTO.getUnitId()
+                            ),
+                            r,
+                            ingredientService.getById(riDTO.getIngredientId()),
+                            riDTO.getAmount(),
+                            unitService.getById(riDTO.getUnitId())
+                    )
+            );
+        }
+
+        r.setRecipeIngredients(temp);
+
+        return(r);
+    }
+}

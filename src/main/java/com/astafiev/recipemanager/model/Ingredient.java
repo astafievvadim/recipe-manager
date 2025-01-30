@@ -29,8 +29,12 @@ public class Ingredient implements Serializable {
     @JsonIgnore
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
+    @OneToMany(
+            mappedBy = "ingredient",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     @JsonIgnore
-    @OneToMany(mappedBy = "ingredient")
     private List <IngredientNutrition> ingredientNutrition;
 
         public List<IngredientNutrition> getIngredientNutrition() {
@@ -93,5 +97,17 @@ public class Ingredient implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "id=" + id +
+                ", ingredientType=" + ingredientType.getLabel() +
+                ", label='" + label + '\'' +
+                ", description='" + description + '\'' +
+                ", recipeIngredients=" + recipeIngredients +
+                ", ingredientNutrition=" + ingredientNutrition +
+                '}';
     }
 }

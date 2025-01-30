@@ -125,9 +125,6 @@ public class Recipe implements Serializable {
         this.comment = comment;
     }
 
-    public void setRecipeType(Optional<RecipeType> recipeTypeById) {
-    }
-
     @Override
     public String toString() {
         return "Recipe{" +

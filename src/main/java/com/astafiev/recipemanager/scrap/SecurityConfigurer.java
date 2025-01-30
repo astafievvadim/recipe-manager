@@ -1,7 +1,7 @@
 /*
 package com.astafiev.recipemanager.security;
 
-import com.astafiev.recipemanager.services.UserService;
+import com.astafiev.recipemanager.service.UserService;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;

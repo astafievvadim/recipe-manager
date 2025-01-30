@@ -13,6 +13,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 *   6. Try using docker
 *   7. Bring back Spring security, rn it's kinda abandoned
 *   8. Clean-up. I've got so much stuff that I don't use anymore
+*   9. Also swagger. It'll be easier if I start it now
+*      9.1 Continue swagger-ing endpoints xd
  */
 
 @SpringBootApplication

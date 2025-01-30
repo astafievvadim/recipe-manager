@@ -3,7 +3,7 @@ package com.astafiev.recipemanager.security;
 
 import com.astafiev.recipemanager.model.User;
 import com.astafiev.recipemanager.model.UserDetailsImpl;
-import com.astafiev.recipemanager.repos.UserRepository;
+import com.astafiev.recipemanager.repository.UserRepository;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
