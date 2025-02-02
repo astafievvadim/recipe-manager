@@ -85,6 +85,10 @@ public class RecipeService {
         return recipeRepository.save(inDB);
     }
 
+    public void deleteRecipe(Recipe recipe){
+        recipeRepository.delete(recipe);
+    }
+
     public List<Recipe> getAllRecipes(){
         return recipeRepository.findAll();
     }

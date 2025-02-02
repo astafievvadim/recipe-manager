@@ -9,12 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IngredientRepository extends JpaRepository<Ingredient, Serializable> {
-
-    //Optional<Ingredient> findIngredientById(Long id);
     Optional<Ingredient> findIngredientById(Long id);
-
     List<Ingredient> findAll();
-    //findRecipesByRecipeIngredientsIngredient
     List<Ingredient> findIngredientsByRecipeIngredientsRecipe(Recipe recipe);
     List<Ingredient> findIngredientsByRecipeIngredientsRecipeId(Long id);
 }

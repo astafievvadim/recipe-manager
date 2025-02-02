@@ -40,6 +40,18 @@ public class RecipeController {
 
         return recipeService.getById(recipeId);
     }
+
+    @DeleteMapping("/{recipeId}")
+    public ResponseEntity<?> deleteRecipe(@PathVariable Long recipeId){
+
+        recipeService.deleteRecipe(
+                recipeService.getById(recipeId)
+        );
+
+        return ResponseEntity.ok("Recipe deleted successfully");
+    }
+
+
     @PostMapping("/put")
     public ResponseEntity<?> addRecipeFromDTO(@RequestBody RecipeDto recipe, Principal principal) {
 
