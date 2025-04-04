@@ -1,0 +1,23 @@
+services:
+  db:
+    container_name: cooking_db_docker
+    image: postgres
+    environment:
+      POSTGRES_USER: cooking_user
+      POSTGRES_PASSWORD: cooking_password
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: cooking_db
+  volumes:
+    - postgres:/data/postgres
+  ports:
+    - "9999:5432"
+  networks:
+    - cooking-net
+  restart: unless-stopped
+
+networks:
+  cooking-net:
+    driver: bridge
+
+volumes:
+  postgres:
